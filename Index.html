@@ -12,7 +12,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Amarren Hopkins | Portfolio</title>
+    <title>Amarren Hopkins | Website</title>
 
     <style>
         * {
@@ -253,9 +253,7 @@
             Thank you for visiting Amarren's Website Design!
         </p>
 
-        <button type="button" id="closeModal">
-            Close
-        </button>
+        <button type="button" id="closeModal">Close</button>
     </div>
 
 </div>
@@ -348,8 +346,12 @@
         </section>
 
         <!-- Projects Section -->
-        <section id="projects">
-            <h2>My Projects</h2>
+       <section id="projects">
+    <h2>My Projects</h2>
+
+    <!-- JavaScript will dynamically display the projects here -->
+    <div id="projectList" class="projects"></div>
+</section>
 
             <p>
                 Below are examples of projects I have worked on.
@@ -408,6 +410,81 @@
     </footer>
 
     <script>
+        // Part 5: Create Custom Project Objects
+
+// Define three project objects containing project information.
+const projectOne = {
+    title: "Storefront Website",
+    summary: "An e-commerce website featuring products, a shopping cart, and checkout functionality.",
+    image: "https://placehold.co/400x250?text=Storefront+Website",
+    link: "https://github.com/Amarren-205/Storefront-Website"
+};
+
+const projectTwo = {
+    title: "Web Development Project Two",
+    summary: "A web development project demonstrating HTML, CSS, and JavaScript skills.",
+    image: "https://placehold.co/400x250?text=Project+Two",
+    link: "https://github.com/Amarren-205/REPLACE-WITH-REPOSITORY-TWO"
+};
+
+const projectThree = {
+    title: "Web Development Project Three",
+    summary: "Another project showcasing interactive website features and programming techniques.",
+    image: "https://placehold.co/400x250?text=Project+Three",
+    link: "https://github.com/Amarren-205/REPLACE-WITH-REPOSITORY-THREE"
+};
+
+// Store all three project objects in an array.
+const projects = [projectOne, projectTwo, projectThree];
+
+// Check session storage for previously saved project information.
+let storedProjects = sessionStorage.getItem("websiteProjects");
+
+if (storedProjects === null) {
+    // Save the project array as a JSON string if no data exists.
+    sessionStorage.setItem("websiteProjects", JSON.stringify(projects));
+    storedProjects = projects;
+} else {
+    // Retrieve and convert the saved JSON string back into an array.
+    storedProjects = JSON.parse(storedProjects);
+}
+
+// Part 5: Dynamically Render Projects
+
+// Select the project display container.
+const projectList = document.getElementById("projectList");
+
+// Loop through the project array and create HTML elements.
+storedProjects.forEach(function(project) {
+    const projectCard = document.createElement("div");
+    projectCard.className = "project";
+
+    const projectTitle = document.createElement("h3");
+    projectTitle.textContent = project.title;
+
+    const projectImage = document.createElement("img");
+    projectImage.src = project.image;
+    projectImage.alt = project.title;
+    projectImage.style.width = "100%";
+
+    const projectSummary = document.createElement("p");
+    projectSummary.textContent = project.summary;
+
+    const projectLink = document.createElement("a");
+    projectLink.href = project.link;
+    projectLink.textContent = "View Repository";
+    projectLink.target = "_blank";
+    projectLink.rel = "noopener noreferrer";
+
+    // Add the project information to its card.
+    projectCard.appendChild(projectTitle);
+    projectCard.appendChild(projectImage);
+    projectCard.appendChild(projectSummary);
+    projectCard.appendChild(projectLink);
+
+    // Display the completed project card on the webpage.
+    projectList.appendChild(projectCard);
+});
         // Personalized User Interaction
        
         // Conditional Logic for Featured Content
