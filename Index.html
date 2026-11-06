@@ -3,12 +3,11 @@
 <html lang="en">
 <head>
     <!--
-        Assignment: GitHub Portfolio Homepage
+        Assignment: GitHub Portfolio Homepage - Part 2
         Author: Amarren Hopkins
         Date: 11/06/26
-        Purpose: Create a personal portfolio homepage with About,
-        Projects, and Contact sections. The page also welcomes
-        visitors by using a JavaScript name prompt.
+        Purpose: Add conditional content, a skills list generated
+        with a loop, a dark mode toggle, and contact form interaction.
     -->
 
     <meta charset="UTF-8">
@@ -27,6 +26,7 @@
             line-height: 1.6;
             color: #333;
             background-color: #f4f4f4;
+            transition: background-color 0.3s, color 0.3s;
         }
 
         header {
@@ -43,6 +43,20 @@
         #welcomeMessage {
             margin-top: 10px;
             font-size: 1.1em;
+        }
+
+        /* Dark Mode Toggle */
+        .dark-mode-control {
+            margin-top: 15px;
+        }
+
+        .dark-mode-control label {
+            cursor: pointer;
+        }
+
+        .dark-mode-control input {
+            margin-right: 6px;
+            cursor: pointer;
         }
 
         nav {
@@ -82,7 +96,8 @@
             padding-bottom: 8px;
         }
 
-        .projects {
+        .projects,
+        .featured-projects {
             display: flex;
             flex-wrap: wrap;
             gap: 20px;
@@ -110,6 +125,29 @@
 
         .project a:hover {
             text-decoration: underline;
+        }
+
+        /* Featured Content Styles */
+        .featured-box {
+            padding: 20px;
+            margin-top: 15px;
+            border-radius: 8px;
+            border-left: 5px solid #243447;
+            background-color: #e9eef3;
+        }
+
+        .featured-box h3 {
+            color: #243447;
+            margin-top: 0;
+        }
+
+        .featured-box a {
+            color: #174f80;
+            font-weight: bold;
+        }
+
+        .featured-box a:hover {
+            color: #a05a00;
         }
 
         form {
@@ -157,6 +195,44 @@
             padding: 15px;
         }
 
+        /* Dark Mode CSS Class */
+        body.dark-mode {
+            background-color: #121212;
+            color: #f1f1f1;
+        }
+
+        body.dark-mode section {
+            background-color: #252525;
+            color: #f1f1f1;
+        }
+
+        body.dark-mode h2,
+        body.dark-mode .featured-box h3 {
+            color: #f0c674;
+        }
+
+        body.dark-mode .featured-box {
+            background-color: #363636;
+            border-left-color: #f0c674;
+        }
+
+        body.dark-mode .featured-box a,
+        body.dark-mode .project a {
+            color: #f0c674;
+        }
+
+        body.dark-mode input,
+        body.dark-mode textarea {
+            background-color: #333;
+            color: white;
+            border-color: #777;
+        }
+
+        body.dark-mode input::placeholder,
+        body.dark-mode textarea::placeholder {
+            color: #ccc;
+        }
+
         @media (max-width: 600px) {
             nav a {
                 display: inline-block;
@@ -171,12 +247,20 @@
     <header>
         <h1>Amarren Hopkins' Portfolio</h1>
 
-        <!-- JavaScript updates this message with the visitor's name. -->
         <p id="welcomeMessage">Welcome to my portfolio!</p>
+
+        <!-- Dark Mode Checkbox -->
+        <div class="dark-mode-control">
+            <label for="darkMode">
+                <input type="checkbox" id="darkMode">
+                Dark Mode
+            </label>
+        </div>
     </header>
 
     <nav>
         <a href="#about">About</a>
+        <a href="#featured">Featured Content</a>
         <a href="#projects">Projects</a>
         <a href="#contact">Contact</a>
     </nav>
@@ -199,6 +283,55 @@
                 a way for visitors to learn more about my projects and
                 contact me.
             </p>
+
+            <h3>My Skills and Technologies</h3>
+
+            <!-- JavaScript will generate the skills list here. -->
+            <ul id="skillsList"></ul>
+        </section>
+
+        <!-- Featured Content Section -->
+        <section id="featured">
+            <h2>Featured Content</h2>
+
+            <!-- University Resources -->
+            <div id="universityResources" class="featured-box">
+                <h3>University Resources</h3>
+
+                <p>
+                    Visit ECPI University's website to learn more
+                    about its programs and educational resources.
+                </p>
+
+                <p>
+                    <a href="https://www.ecpi.edu/programs"
+                       target="_blank" rel="noopener noreferrer">
+                        ECPI University Programs
+                    </a>
+                </p>
+            </div>
+
+            <!-- Personal Projects -->
+            <div id="personalProjects" class="featured-box">
+                <h3>Personal Projects</h3>
+
+                <p>
+                    Explore some of my personal programming and
+                    web development projects.
+                </p>
+
+                <div class="featured-projects">
+                    <div class="project">
+                        <a href="https://github.com/Amarren-205/Storefront-Website"
+                           target="_blank" rel="noopener noreferrer">
+                            <img
+                                src="https://placehold.co/600x400/243447/ffffff?text=Storefront+Website"
+                                alt="Preview of my Storefront Website">
+                            <p>Storefront Website</p>
+                        </a>
+                    </div>
+                </div>
+            </div>
         </section>
 
         <!-- Projects Section -->
@@ -211,34 +344,15 @@
             </p>
 
             <div class="projects">
-                <!-- StoreFront Website -->
+
+                <!-- Actual Project One -->
                 <div class="project">
                     <a href="https://github.com/Amarren-205/Storefront-Website"
-                   target="_blank" rel="noopener noreferrer">
-                <img
-                    src="https://placehold.co/600x400/243447/ffffff?text=Storefront+Website"
-                    alt="Preview of my Storefront Website project">
-                <p>Storefront Website</p>
-                    </a>
-                </div>
-
-                <div class="project">
-                    <a href="https://github.com/yourUsername/project-two"
                        target="_blank" rel="noopener noreferrer">
                         <img
-                            src="https://placehold.co/600x400/3c5875/ffffff?text=Project+Two"
-                            alt="Preview image for Project Two">
-                        <p>Project Two</p>
-                    </a>
-                </div>
-
-                <div class="project">
-                    <a href="https://github.com/yourUsername/project-three"
-                       target="_blank" rel="noopener noreferrer">
-                        <img
-                            src="https://placehold.co/600x400/536878/ffffff?text=Project+Three"
-                            alt="Preview image for Project Three">
-                        <p>Project Three</p>
+                            src="https://placehold.co/600x400/243447/ffffff?text=Storefront+Website"
+                            alt="Preview of my Storefront Website project">
+                        <p>Storefront Website</p>
                     </a>
                 </div>
 
@@ -254,9 +368,7 @@
                 Complete the form below.
             </p>
 
-            <form action="mailto:your-email@example.com"
-                  method="post"
-                  enctype="text/plain">
+            <form id="contactForm">
 
                 <label for="senderName">Sender Name:</label>
                 <input type="text" id="senderName"
@@ -274,7 +386,7 @@
                 <textarea id="message" name="Message"
                           required></textarea>
 
-                <button type="submit">Submit</button>
+                <button type="submit" id="submitButton">Submit</button>
             </form>
         </section>
 
@@ -284,12 +396,11 @@
         <p>&copy; 2026 Amarren Hopkins. All rights reserved.</p>
     </footer>
 
-    <!-- Personalized User Interaction -->
     <script>
-        // Ask the visitor for their name.
+        // Personalized User Interaction
+        // Ask the visitor for their name and display a welcome message.
         let visitorName = prompt("Welcome! What is your name?");
 
-        // Display a personalized welcome message.
         if (visitorName !== null && visitorName.trim() !== "") {
             document.getElementById("welcomeMessage").textContent =
                 "Welcome to my portfolio, " + visitorName.trim() + "!";
@@ -297,8 +408,95 @@
             document.getElementById("welcomeMessage").textContent =
                 "Welcome to my portfolio!";
         }
-    </script>
 
+
+        // Conditional Logic for Featured Content
+        // Count the actual projects listed in the Projects section.
+        const projectCount =
+            document.querySelectorAll("#projects .project").length;
+
+        const universityResources =
+            document.getElementById("universityResources");
+
+        const personalProjects =
+            document.getElementById("personalProjects");
+
+        // Show both sections if there are fewer than three projects.
+        if (projectCount < 3) {
+            universityResources.style.display = "block";
+            personalProjects.style.display = "block";
+        } else {
+            // Otherwise, show Personal Projects only.
+            universityResources.style.display = "none";
+            personalProjects.style.display = "block";
+        }
+
+
+        // Loop to Display Skills
+        // Create an array containing skills and technologies.
+        const skills = [
+            "HTML",
+            "CSS",
+            "JavaScript",
+            "Git",
+            "GitHub",
+            "Web Development"
+        ];
+
+        // Select the unordered list where the skills will appear.
+        const skillsList = document.getElementById("skillsList");
+
+        // Use a for loop to create a list item for each skill.
+        for (let i = 0; i < skills.length; i++) {
+            const listItem = document.createElement("li");
+            listItem.textContent = skills[i];
+            skillsList.appendChild(listItem);
+        }
+
+
+        // Dark Mode Toggle
+        // Select the checkbox and listen for changes.
+        const darkModeCheckbox = document.getElementById("darkMode");
+
+        darkModeCheckbox.addEventListener("change", function() {
+            if (darkModeCheckbox.checked) {
+                document.body.classList.add("dark-mode");
+            } else {
+                document.body.classList.remove("dark-mode");
+            }
+        });
+
+
+        // Contact Form Submit Button
+        // Display a confirmation message when the form is submitted.
+        const submitButton = document.getElementById("submitButton");
+
+        submitButton.addEventListener("click", function(event) {
+            // Prevent the form from refreshing the page.
+            event.preventDefault();
+
+            const contactForm = document.getElementById("contactForm");
+
+            // Check that all required fields are completed correctly.
+            if (!contactForm.reportValidity()) {
+                return;
+            }
+
+            // Retrieve the sender's name from the form.
+            const senderName =
+                document.getElementById("senderName").value.trim();
+
+            // Display a personalized confirmation message.
+            alert(
+                "Thank you, " + senderName +
+                ", your message has been sent!"
+            );
+
+            // Clear the form after successful submission.
+            contactForm.reset();
+        });
+    </script>
 </body>
 </html>
+
 
