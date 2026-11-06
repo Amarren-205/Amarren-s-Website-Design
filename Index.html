@@ -1,1 +1,304 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!--
+        Assignment: GitHub Portfolio Homepage
+        Author: Amarren Hopkins
+        Date: 11/06/26
+        Purpose: Create a personal portfolio homepage with About,
+        Projects, and Contact sections. The page also welcomes
+        visitors by using a JavaScript name prompt.
+    -->
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Amarren Hopkins | Portfolio</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f4f4f4;
+        }
+
+        header {
+            background-color: #243447;
+            color: white;
+            padding: 25px 20px;
+            text-align: center;
+        }
+
+        header h1 {
+            margin: 0;
+        }
+
+        #welcomeMessage {
+            margin-top: 10px;
+            font-size: 1.1em;
+        }
+
+        nav {
+            background-color: #17232f;
+            padding: 12px;
+            text-align: center;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 18px;
+            font-weight: bold;
+        }
+
+        nav a:hover {
+            color: #f0c674;
+        }
+
+        main {
+            max-width: 1000px;
+            margin: 25px auto;
+            padding: 0 20px;
+        }
+
+        section {
+            background-color: white;
+            margin-bottom: 25px;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            color: #243447;
+            border-bottom: 2px solid #f0c674;
+            padding-bottom: 8px;
+        }
+
+        .projects {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .project {
+            flex: 1 1 250px;
+            text-align: center;
+        }
+
+        .project img {
+            width: 100%;
+            max-width: 300px;
+            height: 180px;
+            object-fit: cover;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+        }
+
+        .project a {
+            color: #243447;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .project a:hover {
+            text-decoration: underline;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        input,
+        textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #aaa;
+            border-radius: 4px;
+            font: inherit;
+        }
+
+        textarea {
+            min-height: 140px;
+            resize: vertical;
+        }
+
+        button {
+            background-color: #243447;
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 4px;
+            font-size: 1em;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #3c5875;
+        }
+
+        footer {
+            background-color: #17232f;
+            color: white;
+            text-align: center;
+            padding: 15px;
+        }
+
+        @media (max-width: 600px) {
+            nav a {
+                display: inline-block;
+                margin: 5px 10px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <h1>Amarren Hopkins' Portfolio</h1>
+
+        <!-- JavaScript updates this message with the visitor's name. -->
+        <p id="welcomeMessage">Welcome to my portfolio!</p>
+    </header>
+
+    <nav>
+        <a href="#about">About</a>
+        <a href="#projects">Projects</a>
+        <a href="#contact">Contact</a>
+    </nav>
+
+    <main>
+
+        <!-- About Section -->
+        <section id="about">
+            <h2>About Me</h2>
+
+            <p>
+                Hello! My name is Amarren Hopkins. I am a student
+                developing my skills in web development and programming.
+                I enjoy learning how websites work and building projects
+                that allow me to apply what I have learned.
+            </p>
+
+            <p>
+                This portfolio highlights some of my work and provides
+                a way for visitors to learn more about my projects and
+                contact me.
+            </p>
+        </section>
+
+        <!-- Projects Section -->
+        <section id="projects">
+            <h2>My Projects</h2>
+
+            <p>
+                Below are examples of projects I have worked on.
+                Select a project image to visit its GitHub repository.
+            </p>
+
+            <div class="projects">
+                <!-- StoreFront Website -->
+                <div class="project">
+                    <a href="https://github.com/Amarren-205/Storefront-Website"
+                   target="_blank" rel="noopener noreferrer">
+                <img
+                    src="https://placehold.co/600x400/243447/ffffff?text=Storefront+Website"
+                    alt="Preview of my Storefront Website project">
+                <p>Storefront Website</p>
+                    </a>
+                </div>
+
+                <div class="project">
+                    <a href="https://github.com/yourUsername/project-two"
+                       target="_blank" rel="noopener noreferrer">
+                        <img
+                            src="https://placehold.co/600x400/3c5875/ffffff?text=Project+Two"
+                            alt="Preview image for Project Two">
+                        <p>Project Two</p>
+                    </a>
+                </div>
+
+                <div class="project">
+                    <a href="https://github.com/yourUsername/project-three"
+                       target="_blank" rel="noopener noreferrer">
+                        <img
+                            src="https://placehold.co/600x400/536878/ffffff?text=Project+Three"
+                            alt="Preview image for Project Three">
+                        <p>Project Three</p>
+                    </a>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact">
+            <h2>Contact Me</h2>
+
+            <p>
+                Have a question or want to get in touch?
+                Complete the form below.
+            </p>
+
+            <form action="mailto:your-email@example.com"
+                  method="post"
+                  enctype="text/plain">
+
+                <label for="senderName">Sender Name:</label>
+                <input type="text" id="senderName"
+                       name="Sender Name" required>
+
+                <label for="senderEmail">Email Address:</label>
+                <input type="email" id="senderEmail"
+                       name="Email Address" required>
+
+                <label for="subject">Subject:</label>
+                <input type="text" id="subject"
+                       name="Subject" required>
+
+                <label for="message">Message:</label>
+                <textarea id="message" name="Message"
+                          required></textarea>
+
+                <button type="submit">Submit</button>
+            </form>
+        </section>
+
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Amarren Hopkins. All rights reserved.</p>
+    </footer>
+
+    <!-- Personalized User Interaction -->
+    <script>
+        // Ask the visitor for their name.
+        let visitorName = prompt("Welcome! What is your name?");
+
+        // Display a personalized welcome message.
+        if (visitorName !== null && visitorName.trim() !== "") {
+            document.getElementById("welcomeMessage").textContent =
+                "Welcome to my portfolio, " + visitorName.trim() + "!";
+        } else {
+            document.getElementById("welcomeMessage").textContent =
+                "Welcome to my portfolio!";
+        }
+    </script>
+
+</body>
+</html>
+
