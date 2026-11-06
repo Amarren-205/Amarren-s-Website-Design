@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
     <!--
-        Assignment: GitHub Portfolio Homepage - Part 2
+        Assignment: Amarren's Website Design - Part 3
         Author: Amarren Hopkins
         Date: 11/06/26
         Purpose: Add conditional content, a skills list generated
@@ -245,9 +245,9 @@
 <body>
 
     <header>
-        <h1>Amarren Hopkins' Portfolio</h1>
+        <h1>Amarren Hopkins' Website</h1>
 
-        <p id="welcomeMessage">Welcome to my portfolio!</p>
+        <p id="welcomeMessage">Welcome to my Website!</p>
 
         <!-- Dark Mode Checkbox -->
         <div class="dark-mode-control">
@@ -389,9 +389,7 @@
                 <button type="submit" id="submitButton">Submit</button>
             </form>
         </section>
-
     </main>
-
     <footer>
         <p>&copy; 2026 Amarren Hopkins. All rights reserved.</p>
     </footer>
@@ -414,10 +412,8 @@
         // Count the actual projects listed in the Projects section.
         const projectCount =
             document.querySelectorAll("#projects .project").length;
-
         const universityResources =
             document.getElementById("universityResources");
-
         const personalProjects =
             document.getElementById("personalProjects");
 
@@ -467,34 +463,98 @@
         });
 
 
-        // Contact Form Submit Button
-        // Display a confirmation message when the form is submitted.
-        const submitButton = document.getElementById("submitButton");
+        // ==========================================
+// Part 3: Dynamically Add a New Message
+// ==========================================
 
-        submitButton.addEventListener("click", function(event) {
-            // Prevent the form from refreshing the page.
-            event.preventDefault();
+// Create a new paragraph about the Storefront Website.
+const projectMessage = document.createElement("p");
 
-            const contactForm = document.getElementById("contactForm");
+projectMessage.textContent =
+    "Recent Project: My Storefront Website demonstrates my experience " +
+    "building an online shopping website using web development skills.";
 
-            // Check that all required fields are completed correctly.
-            if (!contactForm.reportValidity()) {
-                return;
-            }
+// Add the paragraph to the Projects section.
+document.getElementById("projects").appendChild(projectMessage);
 
-            // Retrieve the sender's name from the form.
-            const senderName =
-                document.getElementById("senderName").value.trim();
 
-            // Display a personalized confirmation message.
-            alert(
-                "Thank you, " + senderName +
-                ", your message has been sent!"
-            );
+// ==========================================
+// Reference and Modify Existing Elements
+// ==========================================
 
-            // Clear the form after successful submission.
-            contactForm.reset();
-        });
+// Select the About heading and change its appearance.
+const aboutHeading = document.querySelector("#about h2");
+
+aboutHeading.style.fontSize = "30px";
+aboutHeading.style.borderBottom = "3px solid #f0c674";
+
+// Select the Projects heading and modify its appearance.
+const projectsHeading = document.getElementById("projects")
+    .querySelector("h2");
+
+projectsHeading.textContent = "My Projects and Recent Work";
+projectsHeading.style.padding = "12px";
+
+
+// ==========================================
+// Part 3: Timed Contact Form Confirmation
+// ==========================================
+
+// Select the contact form and submit button.
+const contactForm = document.getElementById("contactForm");
+const submitButton = document.getElementById("submitButton");
+
+// Listen for the form submission.
+contactForm.addEventListener("submit", function(event) {
+
+    // Prevent the page from refreshing.
+    event.preventDefault();
+
+    // Check that all required fields are completed correctly.
+    if (!contactForm.reportValidity()) {
+        return;
+    }
+
+    // Retrieve the sender's name.
+    const senderName =
+        document.getElementById("senderName").value.trim();
+
+    // Create a message to display while the form is processing.
+    const statusMessage = document.createElement("p");
+
+    statusMessage.id = "formStatus";
+    statusMessage.textContent = "Sending message...";
+
+    statusMessage.style.color = "#174f80";
+    statusMessage.style.fontWeight = "bold";
+
+    // Add the status message below the form.
+    contactForm.appendChild(statusMessage);
+
+    // Prevent additional submissions while processing.
+    submitButton.disabled = true;
+    submitButton.textContent = "Sending...";
+
+    // Wait 2.5 seconds before displaying the confirmation.
+    setTimeout(function() {
+
+        // Replace the loading message with confirmation.
+        statusMessage.textContent =
+            "Thank you, " + senderName +
+            "! Message sent successfully!";
+
+        statusMessage.style.color = "green";
+
+        // Restore the submit button.
+        submitButton.disabled = false;
+        submitButton.textContent = "Submit";
+
+        // Clear the form after confirmation.
+        contactForm.reset();
+
+    }, 2500);
+
+});
     </script>
 </body>
 </html>
