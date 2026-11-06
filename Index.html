@@ -1,18 +1,20 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <!--
-        Assignment: Amarren's Website Design - Part 3
+        Assignment: Amarren's Website Design - Final Project
         Author: Amarren Hopkins
         Date: 11/06/26
-        Purpose: Add conditional content, a skills list generated
-        with a loop, a dark mode toggle, and contact form interaction.
+        Purpose: Create an interactive website featuring dynamic project
+        objects, session storage, conditional content, a skills list,
+        dark mode, a welcome modal, and a contact form.
     -->
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Amarren Hopkins | Website</title>
+    <title>Amarren's Website Design</title>
 
     <style>
         * {
@@ -39,11 +41,6 @@
             margin: 0;
         }
 
-        #welcomeMessage {
-            margin-top: 10px;
-            font-size: 1.1em;
-        }
-
         /* Dark Mode Toggle */
         .dark-mode-control {
             margin-top: 15px;
@@ -54,6 +51,7 @@
         }
 
         .dark-mode-control input {
+            width: auto;
             margin-right: 6px;
             cursor: pointer;
         }
@@ -105,6 +103,7 @@
         .project {
             flex: 1 1 250px;
             text-align: center;
+            padding: 10px;
         }
 
         .project img {
@@ -232,6 +231,62 @@
             color: #ccc;
         }
 
+        /* Welcome Modal Background Overlay */
+        .modal {
+            display: flex;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.65);
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Welcome Modal Content */
+        .modal-content {
+            background-color: white;
+            color: #333;
+            padding: 30px;
+            border-radius: 8px;
+            width: 90%;
+            max-width: 450px;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        .modal-content h2 {
+            color: #243447;
+        }
+
+        /* Close Button */
+        #closeModal {
+            padding: 10px 25px;
+            margin-top: 10px;
+        }
+
+        /* Submit Button Tooltip */
+        #submitButton {
+            position: relative;
+        }
+
+        #submitButton:hover::after {
+            content: "Click to send your message!";
+            position: absolute;
+            bottom: 125%;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #17232f;
+            color: white;
+            padding: 8px 12px;
+            border-radius: 5px;
+            font-size: 13px;
+            white-space: nowrap;
+            z-index: 10;
+        }
+
         @media (max-width: 600px) {
             nav a {
                 display: inline-block;
@@ -242,24 +297,24 @@
 </head>
 
 <body>
-<!-- Welcome Modal -->
-<div id="welcomeModal" class="modal">
 
-    <div class="modal-content">
-        <h2>Welcome to My Website!</h2>
+    <!-- Welcome Modal -->
+    <div id="welcomeModal" class="modal">
+        <div class="modal-content">
+            <h2>Welcome to My Website!</h2>
 
-        <p>
-            This page is a work in progress.
-            Thank you for visiting Amarren's Website Design!
-        </p>
+            <p>
+                This page is a work in progress.
+                Thank you for visiting Amarren's Website Design!
+            </p>
 
-        <button type="button" id="closeModal">Close</button>
+            <button type="button" id="closeModal">Close</button>
+        </div>
     </div>
 
-</div>
     <header>
-        <h1>Amarren Hopkins' Website</h1>
-        
+        <h1>Amarren's Website Design</h1>
+
         <!-- Dark Mode Checkbox -->
         <div class="dark-mode-control">
             <label for="darkMode">
@@ -290,7 +345,7 @@
             </p>
 
             <p>
-                This portfolio highlights some of my work and provides
+                This website highlights some of my work and provides
                 a way for visitors to learn more about my projects and
                 contact me.
             </p>
@@ -346,32 +401,16 @@
         </section>
 
         <!-- Projects Section -->
-       <section id="projects">
-    <h2>My Projects</h2>
-
-    <!-- JavaScript will dynamically display the projects here -->
-    <div id="projectList" class="projects"></div>
-</section>
+        <section id="projects">
+            <h2>My Projects and Recent Work</h2>
 
             <p>
                 Below are examples of projects I have worked on.
-                Select a project image to visit its GitHub repository.
+                Select a project link to visit its GitHub repository.
             </p>
 
-            <div class="projects">
-
-                <!-- Actual Project One -->
-                <div class="project">
-                    <a href="https://github.com/Amarren-205/Storefront-Website"
-                       target="_blank" rel="noopener noreferrer">
-                        <img
-                            src="https://placehold.co/600x400/243447/ffffff?text=Storefront+Website"
-                            alt="Preview of my Storefront Website project">
-                        <p>Storefront Website</p>
-                    </a>
-                </div>
-
-            </div>
+            <!-- JavaScript will dynamically display the projects here. -->
+            <div id="projectList" class="projects"></div>
         </section>
 
         <!-- Contact Section -->
@@ -404,95 +443,126 @@
                 <button type="submit" id="submitButton">Submit</button>
             </form>
         </section>
+
     </main>
+
     <footer>
         <p>&copy; 2026 Amarren Hopkins. All rights reserved.</p>
     </footer>
 
     <script>
+
+        // ==========================================
         // Part 5: Create Custom Project Objects
+        // ==========================================
 
-// Define three project objects containing project information.
-const projectOne = {
-    title: "Storefront Website",
-    summary: "An e-commerce website featuring products, a shopping cart, and checkout functionality.",
-    image: "https://placehold.co/400x250?text=Storefront+Website",
-    link: "https://github.com/Amarren-205/Storefront-Website"
-};
+        // Define three project objects containing project information.
 
-const projectTwo = {
-    title: "Web Development Project Two",
-    summary: "A web development project demonstrating HTML, CSS, and JavaScript skills.",
-    image: "https://placehold.co/400x250?text=Project+Two",
-    link: "https://github.com/Amarren-205/REPLACE-WITH-REPOSITORY-TWO"
-};
+        const projectOne = {
+            title: "Storefront Website",
+            summary: "An e-commerce website featuring products, a shopping cart, and checkout functionality.",
+            image: "https://placehold.co/400x250?text=Storefront+Website",
+            link: "https://github.com/Amarren-205/Storefront-Website"
+        };
 
-const projectThree = {
-    title: "Web Development Project Three",
-    summary: "Another project showcasing interactive website features and programming techniques.",
-    image: "https://placehold.co/400x250?text=Project+Three",
-    link: "https://github.com/Amarren-205/REPLACE-WITH-REPOSITORY-THREE"
-};
+        const projectTwo = {
+            title: "Web Development Project Two",
+            summary: "A web development project demonstrating HTML, CSS, and JavaScript skills.",
+            image: "https://placehold.co/400x250?text=Project+Two",
+            link: "https://github.com/Amarren-205/REPLACE-WITH-REPOSITORY-TWO"
+        };
 
-// Store all three project objects in an array.
-const projects = [projectOne, projectTwo, projectThree];
+        const projectThree = {
+            title: "Web Development Project Three",
+            summary: "Another project showcasing interactive website features and programming techniques.",
+            image: "https://placehold.co/400x250?text=Project+Three",
+            link: "https://github.com/Amarren-205/REPLACE-WITH-REPOSITORY-THREE"
+        };
 
-// Check session storage for previously saved project information.
-let storedProjects = sessionStorage.getItem("websiteProjects");
+        // Store all three project objects in an array.
+        const projects = [projectOne, projectTwo, projectThree];
 
-if (storedProjects === null) {
-    // Save the project array as a JSON string if no data exists.
-    sessionStorage.setItem("websiteProjects", JSON.stringify(projects));
-    storedProjects = projects;
-} else {
-    // Retrieve and convert the saved JSON string back into an array.
-    storedProjects = JSON.parse(storedProjects);
-}
 
-// Part 5: Dynamically Render Projects
+        // ==========================================
+        // Part 5: Store and Parse Project Information
+        // ==========================================
 
-// Select the project display container.
-const projectList = document.getElementById("projectList");
+        // Check session storage for previously saved project information.
+        let storedProjects = sessionStorage.getItem("websiteProjects");
 
-// Loop through the project array and create HTML elements.
-storedProjects.forEach(function(project) {
-    const projectCard = document.createElement("div");
-    projectCard.className = "project";
+        if (storedProjects === null) {
 
-    const projectTitle = document.createElement("h3");
-    projectTitle.textContent = project.title;
+            // Store the project array as a JSON string.
+            sessionStorage.setItem(
+                "websiteProjects",
+                JSON.stringify(projects)
+            );
 
-    const projectImage = document.createElement("img");
-    projectImage.src = project.image;
-    projectImage.alt = project.title;
-    projectImage.style.width = "100%";
+            storedProjects = projects;
 
-    const projectSummary = document.createElement("p");
-    projectSummary.textContent = project.summary;
+        } else {
 
-    const projectLink = document.createElement("a");
-    projectLink.href = project.link;
-    projectLink.textContent = "View Repository";
-    projectLink.target = "_blank";
-    projectLink.rel = "noopener noreferrer";
+            // Retrieve and parse the saved JSON string.
+            storedProjects = JSON.parse(storedProjects);
+        }
 
-    // Add the project information to its card.
-    projectCard.appendChild(projectTitle);
-    projectCard.appendChild(projectImage);
-    projectCard.appendChild(projectSummary);
-    projectCard.appendChild(projectLink);
 
-    // Display the completed project card on the webpage.
-    projectList.appendChild(projectCard);
-});
-        // Personalized User Interaction
-       
-        // Conditional Logic for Featured Content
-        // Count the actual projects listed in the Projects section.
+        // ==========================================
+        // Part 5: Dynamically Render Projects
+        // ==========================================
+
+        // Select the project display container.
+        const projectList = document.getElementById("projectList");
+
+        // Loop through the stored project array.
+        storedProjects.forEach(function(project) {
+
+            // Create a container for each project.
+            const projectCard = document.createElement("div");
+            projectCard.className = "project";
+
+            // Create the project title.
+            const projectTitle = document.createElement("h3");
+            projectTitle.textContent = project.title;
+
+            // Create the project image.
+            const projectImage = document.createElement("img");
+            projectImage.src = project.image;
+            projectImage.alt = project.title;
+
+            // Create the project summary.
+            const projectSummary = document.createElement("p");
+            projectSummary.textContent = project.summary;
+
+            // Create the repository link.
+            const projectLink = document.createElement("a");
+            projectLink.href = project.link;
+            projectLink.textContent = "View Repository";
+            projectLink.target = "_blank";
+            projectLink.rel = "noopener noreferrer";
+
+            // Add all elements to the project card.
+            projectCard.appendChild(projectTitle);
+            projectCard.appendChild(projectImage);
+            projectCard.appendChild(projectSummary);
+            projectCard.appendChild(projectLink);
+
+            // Add the completed card to the webpage.
+            projectList.appendChild(projectCard);
+        });
+
+
+        // ==========================================
+        // Part 2: Conditional Logic for Featured Content
+        // ==========================================
+
+        // Count the dynamically generated projects.
         const projectCount =
             document.querySelectorAll("#projects .project").length;
+
         const universityResources =
             document.getElementById("universityResources");
+
         const personalProjects =
             document.getElementById("personalProjects");
 
@@ -500,14 +570,19 @@ storedProjects.forEach(function(project) {
         if (projectCount < 3) {
             universityResources.style.display = "block";
             personalProjects.style.display = "block";
+
         } else {
+
             // Otherwise, show Personal Projects only.
             universityResources.style.display = "none";
             personalProjects.style.display = "block";
         }
 
 
-        // Loop to Display Skills
+        // ==========================================
+        // Part 2: Loop to Display Skills
+        // ==========================================
+
         // Create an array containing skills and technologies.
         const skills = [
             "HTML",
@@ -518,206 +593,164 @@ storedProjects.forEach(function(project) {
             "Web Development"
         ];
 
-        // Select the unordered list where the skills will appear.
+        // Select the unordered list where skills will appear.
         const skillsList = document.getElementById("skillsList");
 
         // Use a for loop to create a list item for each skill.
         for (let i = 0; i < skills.length; i++) {
+
             const listItem = document.createElement("li");
             listItem.textContent = skills[i];
+
             skillsList.appendChild(listItem);
         }
 
-        // Dark Mode Toggle
-// Part 4: Save Dark Mode Preference
-// ==========================================
-
-// Select the Dark Mode checkbox.
-const darkModeCheckbox = document.getElementById("darkMode");
-
-// Check localStorage for a previously saved preference.
-const savedDarkMode = localStorage.getItem("darkMode");
-
-// Restore the saved Dark Mode setting when the page loads.
-if (savedDarkMode === "enabled") {
-    document.body.classList.add("dark-mode");
-    darkModeCheckbox.checked = true;
-} else {
-    document.body.classList.remove("dark-mode");
-    darkModeCheckbox.checked = false;
-}
-
-// Listen for changes to the Dark Mode checkbox.
-darkModeCheckbox.addEventListener("change", function() {
-
-    if (darkModeCheckbox.checked) {
-        // Enable Dark Mode and save the preference.
-        document.body.classList.add("dark-mode");
-        localStorage.setItem("darkMode", "enabled");
-    } else {
-        // Disable Dark Mode and save the preference.
-        document.body.classList.remove("dark-mode");
-        localStorage.setItem("darkMode", "disabled");
-
-    }
-});
 
         // ==========================================
-// Part 3: Dynamically Add a New Message
-// ==========================================
+        // Part 4: Save Dark Mode Preference
+        // ==========================================
 
-// Create a new paragraph about the Storefront Website.
-const projectMessage = document.createElement("p");
+        // Select the Dark Mode checkbox.
+        const darkModeCheckbox = document.getElementById("darkMode");
 
-projectMessage.textContent =
-    "Recent Project: My Storefront Website demonstrates my experience " +
-    "building an online shopping website using web development skills.";
+        // Check localStorage for a previously saved preference.
+        const savedDarkMode = localStorage.getItem("darkMode");
 
-// Add the paragraph to the Projects section.
-document.getElementById("projects").appendChild(projectMessage);
+        // Restore the saved Dark Mode setting when the page loads.
+        if (savedDarkMode === "enabled") {
+            document.body.classList.add("dark-mode");
+            darkModeCheckbox.checked = true;
+
+        } else {
+            document.body.classList.remove("dark-mode");
+            darkModeCheckbox.checked = false;
+        }
+
+        // Listen for changes to the Dark Mode checkbox.
+        darkModeCheckbox.addEventListener("change", function() {
+
+            if (darkModeCheckbox.checked) {
+
+                // Enable Dark Mode and save the preference.
+                document.body.classList.add("dark-mode");
+                localStorage.setItem("darkMode", "enabled");
+
+            } else {
+
+                // Disable Dark Mode and save the preference.
+                document.body.classList.remove("dark-mode");
+                localStorage.setItem("darkMode", "disabled");
+            }
+        });
 
 
-// ==========================================
-// Reference and Modify Existing Elements
-// ==========================================
+        // ==========================================
+        // Part 3: Dynamically Add a New Message
+        // ==========================================
 
-// Select the About heading and change its appearance.
-const aboutHeading = document.querySelector("#about h2");
+        // Create a new paragraph about the Storefront Website.
+        const projectMessage = document.createElement("p");
 
-aboutHeading.style.fontSize = "30px";
-aboutHeading.style.borderBottom = "3px solid #f0c674";
+        projectMessage.textContent =
+            "Recent Project: My Storefront Website demonstrates my experience " +
+            "building an online shopping website using web development skills.";
 
-// Select the Projects heading and modify its appearance.
-const projectsHeading = document.getElementById("projects")
-    .querySelector("h2");
-
-projectsHeading.textContent = "My Projects and Recent Work";
-projectsHeading.style.padding = "12px";
+        // Add the paragraph to the Projects section.
+        document.getElementById("projects").appendChild(projectMessage);
 
 
-// ==========================================
-// Part 3: Timed Contact Form Confirmation
-// ==========================================
+        // ==========================================
+        // Part 3: Reference and Modify Existing Elements
+        // ==========================================
 
-// Select the contact form and submit button.
-const contactForm = document.getElementById("contactForm");
-const submitButton = document.getElementById("submitButton");
+        // Select the About heading and change its appearance.
+        const aboutHeading = document.querySelector("#about h2");
 
-// Listen for the form submission.
-contactForm.addEventListener("submit", function(event) {
+        aboutHeading.style.fontSize = "30px";
+        aboutHeading.style.borderBottom = "3px solid #f0c674";
 
-    // Prevent the page from refreshing.
-    event.preventDefault();
+        // Select the Projects heading and modify its appearance.
+        const projectsHeading = document.getElementById("projects")
+            .querySelector("h2");
 
-    // Check that all required fields are completed correctly.
-    if (!contactForm.reportValidity()) {
-        return;
-    }
+        projectsHeading.textContent = "My Projects and Recent Work";
+        projectsHeading.style.padding = "12px";
 
-    // Retrieve the sender's name.
-    const senderName =
-        document.getElementById("senderName").value.trim();
 
-    // Create a message to display while the form is processing.
-    const statusMessage = document.createElement("p");
+        // ==========================================
+        // Part 3: Timed Contact Form Confirmation
+        // ==========================================
 
-    statusMessage.id = "formStatus";
-    statusMessage.textContent = "Sending message...";
+        // Select the contact form and submit button.
+        const contactForm = document.getElementById("contactForm");
+        const submitButton = document.getElementById("submitButton");
 
-    statusMessage.style.color = "#174f80";
-    statusMessage.style.fontWeight = "bold";
+        // Listen for the form submission.
+        contactForm.addEventListener("submit", function(event) {
 
-    // Add the status message below the form.
-    contactForm.appendChild(statusMessage);
+            // Prevent the page from refreshing.
+            event.preventDefault();
 
-    // Prevent additional submissions while processing.
-    submitButton.disabled = true;
-    submitButton.textContent = "Sending...";
+            // Check that all required fields are completed correctly.
+            if (!contactForm.reportValidity()) {
+                return;
+            }
 
-    // Wait 2.5 seconds before displaying the confirmation.
-    setTimeout(function() {
+            // Retrieve the sender's name.
+            const senderName =
+                document.getElementById("senderName").value.trim();
 
-        // Replace the loading message with confirmation.
-        statusMessage.textContent =
-            "Thank you, " + senderName +
-            "! Message sent successfully!";
+            // Create a message to display while the form is processing.
+            let statusMessage = document.getElementById("formStatus");
 
-        statusMessage.style.color = "green";
+            if (!statusMessage) {
+                statusMessage = document.createElement("p");
+                statusMessage.id = "formStatus";
+                contactForm.appendChild(statusMessage);
+            }
 
-        // Restore the submit button.
-        submitButton.disabled = false;
-        submitButton.textContent = "Submit";
+            statusMessage.textContent = "Sending message...";
+            statusMessage.style.color = "#174f80";
+            statusMessage.style.fontWeight = "bold";
 
-        // Clear the form after confirmation.
-        contactForm.reset();
+            // Prevent additional submissions while processing.
+            submitButton.disabled = true;
+            submitButton.textContent = "Sending...";
 
-    }, 2500);
+            // Wait 2.5 seconds before displaying the confirmation.
+            setTimeout(function() {
 
-});
-        // Welcome Modal Interaction
-const welcomeModal = document.getElementById("welcomeModal");
-const closeModal = document.getElementById("closeModal");
+                // Replace the loading message with confirmation.
+                statusMessage.textContent =
+                    "Thank you, " + senderName +
+                    "! Message sent successfully!";
 
-closeModal.addEventListener("click", function() {
-    welcomeModal.style.display = "none";
-});
-        /* Welcome Modal Background Overlay */
-.modal {
-    display: flex;
-    position: fixed;
-    z-index: 1000;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.65);
-    justify-content: center;
-    align-items: center;
-}
+                statusMessage.style.color = "green";
 
-/* Welcome Modal Content */
-.modal-content {
-    background-color: white;
-    color: #333;
-    padding: 30px;
-    border-radius: 8px;
-    width: 90%;
-    max-width: 450px;
-    text-align: center;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-}
+                // Restore the submit button.
+                submitButton.disabled = false;
+                submitButton.textContent = "Submit";
 
-.modal-content h2 {
-    color: #243447;
-}
+                // Clear the form after confirmation.
+                contactForm.reset();
 
-/* Close Button */
-#closeModal {
-    padding: 10px 25px;
-    margin-top: 10px;
-}
+            }, 2500);
+        });
 
-/* Submit Button Tooltip */
-#submitButton {
-    position: relative;
-}
 
-#submitButton:hover::after {
-    content: "Click to send your message!";
-    position: absolute;
-    bottom: 125%;
-    left: 50%;
-    transform: translateX(-50%);
-    background-color: #17232f;
-    color: white;
-    padding: 8px 12px;
-    border-radius: 5px;
-    font-size: 13px;
-    white-space: nowrap;
-    z-index: 10;
-}
+        // ==========================================
+        // Part 4: Welcome Modal Interaction
+        // ==========================================
+
+        // Select the welcome modal and Close button.
+        const welcomeModal = document.getElementById("welcomeModal");
+        const closeModal = document.getElementById("closeModal");
+
+        // Hide the welcome modal when the Close button is clicked.
+        closeModal.addEventListener("click", function() {
+            welcomeModal.style.display = "none";
+        });
+
     </script>
 </body>
 </html>
-
-
