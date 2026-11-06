@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -243,12 +242,26 @@
 </head>
 
 <body>
+<!-- Welcome Modal -->
+<div id="welcomeModal" class="modal">
 
+    <div class="modal-content">
+        <h2>Welcome to My Website!</h2>
+
+        <p>
+            This page is a work in progress.
+            Thank you for visiting Amarren's Website Design!
+        </p>
+
+        <button type="button" id="closeModal">
+            Close
+        </button>
+    </div>
+
+</div>
     <header>
         <h1>Amarren Hopkins' Website</h1>
-
-        <p id="welcomeMessage">Welcome to my Website!</p>
-
+        
         <!-- Dark Mode Checkbox -->
         <div class="dark-mode-control">
             <label for="darkMode">
@@ -396,18 +409,7 @@
 
     <script>
         // Personalized User Interaction
-        // Ask the visitor for their name and display a welcome message.
-        let visitorName = prompt("Welcome! What is your name?");
-
-        if (visitorName !== null && visitorName.trim() !== "") {
-            document.getElementById("welcomeMessage").textContent =
-                "Welcome to my portfolio, " + visitorName.trim() + "!";
-        } else {
-            document.getElementById("welcomeMessage").textContent =
-                "Welcome to my portfolio!";
-        }
-
-
+       
         // Conditional Logic for Featured Content
         // Count the actual projects listed in the Projects section.
         const projectCount =
@@ -449,19 +451,39 @@
             skillsList.appendChild(listItem);
         }
 
-
         // Dark Mode Toggle
-        // Select the checkbox and listen for changes.
-        const darkModeCheckbox = document.getElementById("darkMode");
+// Part 4: Save Dark Mode Preference
+// ==========================================
 
-        darkModeCheckbox.addEventListener("change", function() {
-            if (darkModeCheckbox.checked) {
-                document.body.classList.add("dark-mode");
-            } else {
-                document.body.classList.remove("dark-mode");
-            }
-        });
+// Select the Dark Mode checkbox.
+const darkModeCheckbox = document.getElementById("darkMode");
 
+// Check localStorage for a previously saved preference.
+const savedDarkMode = localStorage.getItem("darkMode");
+
+// Restore the saved Dark Mode setting when the page loads.
+if (savedDarkMode === "enabled") {
+    document.body.classList.add("dark-mode");
+    darkModeCheckbox.checked = true;
+} else {
+    document.body.classList.remove("dark-mode");
+    darkModeCheckbox.checked = false;
+}
+
+// Listen for changes to the Dark Mode checkbox.
+darkModeCheckbox.addEventListener("change", function() {
+
+    if (darkModeCheckbox.checked) {
+        // Enable Dark Mode and save the preference.
+        document.body.classList.add("dark-mode");
+        localStorage.setItem("darkMode", "enabled");
+    } else {
+        // Disable Dark Mode and save the preference.
+        document.body.classList.remove("dark-mode");
+        localStorage.setItem("darkMode", "disabled");
+
+    }
+});
 
         // ==========================================
 // Part 3: Dynamically Add a New Message
@@ -555,6 +577,68 @@ contactForm.addEventListener("submit", function(event) {
     }, 2500);
 
 });
+        // Welcome Modal Interaction
+const welcomeModal = document.getElementById("welcomeModal");
+const closeModal = document.getElementById("closeModal");
+
+closeModal.addEventListener("click", function() {
+    welcomeModal.style.display = "none";
+});
+        /* Welcome Modal Background Overlay */
+.modal {
+    display: flex;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.65);
+    justify-content: center;
+    align-items: center;
+}
+
+/* Welcome Modal Content */
+.modal-content {
+    background-color: white;
+    color: #333;
+    padding: 30px;
+    border-radius: 8px;
+    width: 90%;
+    max-width: 450px;
+    text-align: center;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.modal-content h2 {
+    color: #243447;
+}
+
+/* Close Button */
+#closeModal {
+    padding: 10px 25px;
+    margin-top: 10px;
+}
+
+/* Submit Button Tooltip */
+#submitButton {
+    position: relative;
+}
+
+#submitButton:hover::after {
+    content: "Click to send your message!";
+    position: absolute;
+    bottom: 125%;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #17232f;
+    color: white;
+    padding: 8px 12px;
+    border-radius: 5px;
+    font-size: 13px;
+    white-space: nowrap;
+    z-index: 10;
+}
     </script>
 </body>
 </html>
